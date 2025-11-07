@@ -9,8 +9,8 @@ app.use(express.static("public"));
 // load json data
 const artists = require("./data/artists.json");
 const genres = require("./data/genres.json");
-const trending = require("./data/trending.json");
-const profiles = require("./data/profiles.json");
+const trending = require("./data/charts.json");
+const profiles = require("./data/users.json");
 
 // serve index.html (optional for Render root)
 app.get("/", (req, res) => {
