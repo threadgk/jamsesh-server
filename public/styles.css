@@ -1,0 +1,63 @@
+header h1 {
+    text-align: center;
+}
+header, footer {
+    margin: 10px;
+    padding: 10px;
+    color: white;
+    background-color: rgb(6, 30, 145);
+}
+body {
+    background:linear-gradient(to right,rgb(0, 140, 255),rgb(129, 224, 129), rgb(244, 244, 198) ) ;
+    border: 10px solid black;
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+} 
+section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 20px;
+    height: 80%;
+    width: 80%;
+}
+
+#artist-info{
+    border: 5px solid royalblue;
+    background-color: lightskyblue;
+    flex: 1 1;
+}
+#genre-info{
+    border: 5px solid lightgreen;
+    background-color: lightgoldenrodyellow;
+    flex: 1 1;
+}
+#trending-info{
+    flex: 1 1;
+    border: 5px solid lightgoldenrodyellow;
+    background-color: lightgreen;
+}
+#profile-info{
+    flex: 1 1;
+    border: 5px solid lightskyblue;
+    background-color: royalblue;
+}
+
+section a { 
+    border: 2px solid rgb(6, 30, 145);
+    text-decoration: none; 
+    color: black; 
+    padding: 10px;
+    border-radius: 5px;
+    background-color: white;
+}
+section a:hover { 
+    font-weight: bold;
+    color: royalblue;
+    background-color: white;
+}
+
