@@ -1,0 +1,132 @@
+[
+    {
+        "_genre": "Pop",
+        "_description": "Pop music, short for “popular music,” started becoming its own genre in the 1950s and 1960s. It grew out of rock and roll but focused on catchy melodies, easy-to-follow lyrics, and songs made for a wide audience. Icons like The Beatles and Michael Jackson shaped what we think of as pop. Over time, pop blended with other genres like dance, hip-hop, and electronic music. Today, artists like Taylor Swift, Ariana Grande, and Billie Eilish keep pushing pop forward, but the heart of it is still making music that connects with as many people as possible.", 
+        "sub-genres": [
+            {
+                "name": "Electro Pop",
+                "description": "Pop with electronic beats and synth-driven melodies.",
+                "rec-link": "playlist"
+            },
+            {
+                "name": "Alternative Pop",
+                "description": "Experimental pop that blends indie and electronic styles.",
+                "rec-link": "playlist"
+            },
+            {
+                "name": "Dance Pop",
+                "description": "Catchy, upbeat pop made for clubs and radio.",
+                "rec-link": "playlist"
+            },
+            {
+                "name": "Pop Rock",
+                "description": "Pop mixed with rock guitars and energetic rhythms.",
+                "rec-link": "playlist"
+            }
+        ]
+    } , 
+    {
+        "_genre": "Hip-Hop",
+        "_description": "Hip-hop began in the Bronx, New York City, during the 1970s. It started as a cultural movement with four main elements: rapping, DJing, breakdancing, and graffiti art. Early hip-hop was about storytelling and representing life in underserved communities. By the 1980s and 1990s, artists like Run-D.M.C., Tupac, and The Notorious B.I.G. helped hip-hop grow worldwide. Today, it’s one of the most popular genres, with artists like Kendrick Lamar, Drake, and Nicki Minaj leading the way. Hip-hop continues to evolve, mixing with pop, trap, and R&B but still rooted in expression and rhythm.", 
+        "sub-genres": [
+            {
+                "name":"Old School",
+                "description":"Classic hip-hop with simple beats and storytelling lyrics.",
+                "rec-link": "playlist"
+            },
+            {
+                "name":"Conscious",
+                "description":"Focuses on social issues, empowerment, and awareness.",
+                "rec-link":"playlist"
+            },
+            {
+                "name":"Alternative",
+                "description":"Creative, genre-blending hip-hop with unique sounds.",
+                "rec-link": "playlist"
+            },
+            {
+                "name":"Trap",
+                "description":"Southern hip-hop with heavy bass and rapid hi-hats.",
+                "rec-link": "playlist"
+            }
+        ] 
+    } , 
+    {
+        "_genre" : "R&B",
+        "_description" : "R&B started in the 1940s as a mix of jazz, gospel, and blues. In the beginning, it was mostly soulful singing with strong rhythms that influenced early rock and roll. In the 1960s and 1970s, artists like Stevie Wonder and Aretha Franklin brought R&B into the spotlight. By the 1990s, R&B blended with hip-hop, creating smooth, emotional music with a modern twist—think Usher, Aaliyah, and TLC. Today’s R&B artists like SZA, Frank Ocean, and The Weeknd continue the tradition of soulful singing but mix in electronic and pop sounds too.", 
+        "sub-genres" : [
+            {
+                "name" :"Soul",
+                "description" :"Emotional vocals with gospel and jazz influences.",
+                "rec-link" : "playlist"
+            },
+            {
+                "name" :"Trap-Soul",
+                "description" :"Blend of R&B melodies and trap-style beats.",
+                "rec-link" : "playlist"
+            },
+            {
+                "name" :"Alternative",
+                "description" :"Experimental R&B with electronic or indie elements.",
+                "rec-link" : "playlist"
+            },
+            {
+                "name" :"Contemporary",
+                "description" :"Modern R&B with smooth production and pop appeal.",
+                "rec-link" : "playlist"
+            }
+        ]
+    } ,
+    {
+        "_genre": "Country",
+        "_description": "Country music began in the southern United States during the 1920s, but its roots stretch back much further. It grew out of folk traditions brought by European immigrants and also from the music of enslaved African people. Instruments like the banjo, which became central to early country, came from Africa through slavery. Country’s storytelling style was influenced by both the ballads of European settlers and the rhythms, call-and-response, and spirituals sung by enslaved people. In the early days, country was played on fiddles, banjos, and acoustic guitars, often sharing stories of rural life and hardship. By the 1950s, stars like Johnny Cash and Patsy Cline helped bring country into the mainstream. Later, artists like Garth Brooks and Shania Twain gave it a pop twist and reached bigger audiences. Today, country has a wide range of sounds—from traditional artists like Chris Stapleton to pop-country stars like Kacey Musgraves and Morgan Wallen. At its core, country is about storytelling, but its history is deeply tied to the blending of cultures and painful histories of the American South.", 
+        "sub-genres": [
+            {
+                "name":"Old Time",
+                "description":"Traditional country with folk and bluegrass roots.",
+                "rec-link":"playlist"
+            },
+            {
+                "name":"Southern Gospel",
+                "description":"Faith-based country music with rich vocal harmonies.",
+                "rec-link": "playlist"
+            },
+            {
+                "name":"Hymnal",
+                "description":"Spiritual songs rooted in early Christian folk traditions.",
+                "rec-link": "playlist"
+            },
+            {
+                "name":"Country Pop",
+                "description":"Mainstream country with catchy pop hooks.",
+                "rec-link": "playlist"
+            }
+        ] 
+    } ,
+    {
+        "_genre" : "Alternative",
+        "_description" : "Alternative music, often called “alt,” started in the 1980s as a response to mainstream rock and pop. It was a way for bands to make music that felt different, experimental, or more authentic. In the 1990s, alt rock exploded with bands like Nirvana, Radiohead, and Red Hot Chili Peppers. The genre blends rock, punk, indie, and sometimes electronic influences. Today, “alternative” is broad—it can mean indie pop (like Clairo), alt-rock (like Arctic Monkeys), or experimental sounds (like Tame Impala). What ties it together is that it’s music that doesn’t always follow the mainstream formula.", 
+        "sub-genres" : [
+            {
+                "name":"Alternative Rock",
+                "description":"Rock music with indie and experimental influences.",
+                "rec-link": "playlist"
+            },
+            {
+                "name":"Alternative Pop",
+                "description":"Pop with unique sounds and unconventional structures.",
+                "rec-link": "playlist"
+            },
+            {
+                "name":"Alternative Rap",
+                "description":"Non-mainstream rap that blends diverse genres.",
+                "rec-link": "playlist"
+            },
+            {
+                "name":"Alternative R&B",
+                "description":"Moody, creative R&B with modern production.",
+                "rec-link": "playlist"
+            }
+        ]
+    } 
+]

@@ -1,0 +1,12 @@
+[
+    {
+        "_user-id": "001", 
+        "_username": "example_user", 
+        "_password": "PassW0rd1", 
+        "_dob": "Sept 05, 2000",
+        "_playlists": "",
+        "profile-picture": "json/images/profile-images/profile.JPG", 
+        "_reviews": "This is the best song EVERRRRRR!",
+        "_ratings":"4"
+    }
+]
