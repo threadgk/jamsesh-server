@@ -3,7 +3,7 @@
         "_user-id": "001", 
         "_username": "example_user", 
         "_password": "PassW0rd1", 
-        "avatar": "json/images/profile-images/example.JPG",
+        "avatar": "/images/profile-images/example.JPG",
         "_bio": "This is an example bio.", 
         "_location": "Columbia, SC",
         "_dob": "Sept 05, 2000",
