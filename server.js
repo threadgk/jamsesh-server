@@ -18,7 +18,7 @@ const trending = require("./data/charts.json");
 app.post("/api/signup", (req, res) => {
   try {
     const users = JSON.parse(fs.readFileSync("./data/users.json", "utf8")) 
-    const { username, password, avatar, banner, bio, location, favoriteArtist }  = req.body;
+    const { username, password, name, dob }  = req.body;
 
     if (users.find(u => u._username === username)){
       return res.status(400).json({error: "Username already exists"});
@@ -27,11 +27,12 @@ app.post("/api/signup", (req, res) => {
     const newUser = {
       _username: username, 
       _password: password, 
-      avatar: avatar || "", 
-      "profile-picture": banner || "", 
-      _bio: bio || "", 
-      _location: location || "", 
-      _favoriteArtist: favoriteArtist || ""
+      name: name,
+      dob: dob,
+      avatar: "",
+      banner: "",
+      bio: "",
+      location: ""
     };
 
     users.push(newUser); 
@@ -65,6 +66,33 @@ app.post("/api/login", (req, res) => {
     console.error("Login error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
+}); 
+
+app.put("/api/profile/update", (req, res) => {
+  try {
+    const { username, avatar, banner, bio, location } = req.body; 
+
+    const users = JSON.parse(fs.readFileSync("./data/users.json", "utf8")); 
+    const index = users.findIndex(u => u._username === username);
+
+    if (index === -1) {
+      return res.status(404).json({error: "User Not Found" });
+    } 
+
+    users[index].avatar = avatar;
+    users[index].banner = banner;
+    users[index].bio = bio;
+    users[index].location; 
+
+    
+    fs.writeFileSync("./data/users.json", JSON.strigify(users,null,2) ); 
+
+    res.json({ message: "Profile udpdate", user: users[index] }) ; 
+    
+  }catch (err) {
+      console.error("Update error:", err); 
+      res.status(500).json({ error: "Internal server error"});
+    }
 });
 
 // serve index.html 
