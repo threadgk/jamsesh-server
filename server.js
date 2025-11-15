@@ -82,10 +82,10 @@ app.put("/api/profile/update", (req, res) => {
     users[index].avatar = avatar;
     users[index].banner = banner;
     users[index].bio = bio;
-    users[index].location; 
+    users[index].location = location; 
 
     
-    fs.writeFileSync("./data/users.json", JSON.strigify(users,null,2) ); 
+    fs.writeFileSync("./data/users.json", JSON.stringify(users,null,2) ); 
 
     res.json({ message: "Profile udpdate", user: users[index] }) ; 
     
