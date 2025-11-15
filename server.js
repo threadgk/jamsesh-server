@@ -2,16 +2,47 @@ const express = require("express");
 const cors = require("cors");
 const path = require("path");
 const app = express();
-const fs = require("fs");  
+const fs = require("fs");   
+const multer = require("multer");
+
+
+
 
 app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
 
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "./uploads");
+
+  }, 
+
+  filename: (req, file, cb) => {
+    cb(null, Date.now() + "-"+ file.originalname); 
+  }
+}); 
+
+const upload = multer ({ storage}); 
+
 // load json data
 const artists = require("./data/artists.json");
 const genres = require("./data/genres.json");
 const trending = require("./data/charts.json");
+
+// upload avatar
+app.post("/api/upload/avatar", upload.single("avatar"), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "No file Uploaded"}); 
+  res.json({ filePatch: `/uploads/${req.file.filename}`}); 
+
+}); 
+
+// upload banner 
+app.post("/api/upload/banner", upload.single("banner"), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: "No file uploaded"});  
+  res.json({ filePath: `/uploads/${req.file.filename}`});
+
+})
 
 
 // create new user 
