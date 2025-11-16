@@ -160,7 +160,33 @@ app.get("/api/profiles/:username", (req, res) => {
   }
 });
 
+app.use("/uploads", express.static("uploads")); 
 
+app.get("/api/avatars", (req, res) => {
+  try {
+    const avatarDir = path.join(__dirname, "uploads/avatar"); 
+    const files = fs.readdirSync(avatarDir); 
+    res.json(files.map(file => `/uploads/avatars/${file}`));  
+
+  } catch (err) { 
+    console.error("Avatar fetch error", err); 
+    res.status(500).json({ error: "Error loading avatars"}); 
+
+  }
+});
+
+app.get("/api/banners", (req, res) => {
+  try {
+    const bannerDir = path.join(__dirname, "uploads/banners"); 
+    const files = fs.readdirSync(bannerDir); 
+    res.json(files.map(file => `/uploads/banners/${file}`));  
+
+  } catch (err) { 
+    console.error("Banner fetch error", err); 
+    res.status(500).json({ error: "Error loading banners"}); 
+
+  }
+});
 
 // start server
 const port = process.env.PORT || 3000;
