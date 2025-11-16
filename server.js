@@ -164,7 +164,7 @@ app.use("/uploads", express.static("uploads"));
 
 app.get("/api/avatars", (req, res) => {
   try {
-    const avatarDir = path.join(__dirname, "uploads/avatar"); 
+    const avatarDir = path.join(__dirname, "uploads/avatars"); 
     const files = fs.readdirSync(avatarDir); 
     res.json(files.map(file => `/uploads/avatars/${file}`));  
 
