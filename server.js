@@ -33,7 +33,7 @@ const trending = require("./data/charts.json");
 // upload avatar
 app.post("/api/upload/avatar", upload.single("avatar"), (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file Uploaded"}); 
-  res.json({ filePatch: `/uploads/${req.file.filename}`}); 
+  res.json({ filePath: `/uploads/${req.file.filename}`}); 
 
 }); 
 

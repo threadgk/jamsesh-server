@@ -1,11 +1,31 @@
 [
-    {
-        "_username": "example_user", 
-        "_password": "PassW0rd1", 
-        "dob": "2000-09-05",
-        "avatar": "",
-        "bio": "", 
-        "banner": "",
-        "location": ""
-    }
+  {
+    "_username": "example_user",
+    "_password": "PassW0rd1",
+    "dob": "2000-09-05",
+    "avatar": "",
+    "bio": "",
+    "banner": "",
+    "location": ""
+  },
+  {
+    "_username": "k",
+    "_password": "123",
+    "name": "kkt",
+    "dob": "2025-11-25",
+    "avatar": "",
+    "banner": "",
+    "bio": "",
+    "location": ""
+  },
+  {
+    "_username": "kayla",
+    "_password": "fri",
+    "name": "ktt45",
+    "dob": "2025-11-11",
+    "avatar": "",
+    "banner": "",
+    "bio": "",
+    "location": ""
+  }
 ]
