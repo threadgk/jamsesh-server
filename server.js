@@ -4,6 +4,7 @@ const path = require("path");
 const app = express();
 const fs = require("fs");   
 const multer = require("multer");
+const Joi = require("joi");
 
 
 
@@ -11,6 +12,7 @@ const multer = require("multer");
 app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
+
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -22,6 +24,10 @@ const storage = multer.diskStorage({
     cb(null, Date.now() + "-"+ file.originalname); 
   }
 }); 
+const loginSchema = Joi.object({
+  username: Joi.string().min(3).max(30).required(),
+  password: Joi.string().min(4).max(50).required()
+});
 
 const upload = multer ({ storage}); 
 
@@ -80,6 +86,12 @@ app.post("/api/signup", (req, res) => {
 // validate credentials 
 app.post("/api/login", (req, res) => {
   try {
+    // Validate request body
+    const { error } = loginSchema.validate(req.body);
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
+
     const users = JSON.parse(fs.readFileSync("./data/users.json", "utf8"));
     const { username, password } = req.body;
 
@@ -97,6 +109,7 @@ app.post("/api/login", (req, res) => {
     console.error("Login error:", err);
     res.status(500).json({ error: "Internal server error" });
   }
+
 }); 
 
 app.put("/api/profile/update", (req, res) => {
