@@ -29,6 +29,13 @@ const loginSchema = Joi.object({
   password: Joi.string().min(4).max(50).required()
 });
 
+const playlistSchema = Joi.object({
+  title: Joi.string().min(3).max(50).required(), 
+  artist: Joi.string().min(3).max(50).required(),
+  album: Joi.string().allow("").max(50),
+});
+
+
 const upload = multer ({ storage}); 
 
 // load json data
@@ -180,9 +187,11 @@ app.post("/api/playlist", (req, res) => {
   try {
     const { title, artist, album } = req.body;
 
-    if (!title || !artist) {
-      return res.status(400).json({ error: "Title and artist are required." });
+    const { error } = playlistSchema.validate({ title, artist, album }); 
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message});
     }
+    
 
     const playlist = loadPlaylist();
 
@@ -195,8 +204,7 @@ app.post("/api/playlist", (req, res) => {
 
     playlist.push(newSong);
     savePlaylist(playlist);
-
-    res.status(201).json(newSong);
+    res.status(200).json(newSong);
   } catch (err) {
     console.error("Error adding song:", err);
     res.status(500).json({ error: "Failed to add song" });
@@ -208,6 +216,11 @@ app.put("/api/playlist/:id", (req, res) => {
   try {
     const songId = Number(req.params.id);
     const { title, artist, album } = req.body;
+
+    const { error } = playlistSchema.validate({ title, artist, album }); 
+    if (error) {
+      return res.status(400).json({ error: error.details[0].message });
+    }
 
     const playlist = loadPlaylist();
     const index = playlist.findIndex((s) => s.id === songId);
@@ -225,6 +238,7 @@ app.put("/api/playlist/:id", (req, res) => {
 
     savePlaylist(playlist);
 
+    res.status(200).json(playlist[index]);
     res.json(playlist[index]);
   } catch (err) {
     console.error("Error updating song:", err);
