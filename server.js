@@ -37,7 +37,7 @@ const genres = require("./data/genres.json");
 const trending = require("./data/charts.json");
 
 //  playlist helpers
-const playlistPath = path.join(__dirname, "data", "playlist.json");
+const playlistPath = path.join(__dirname, "data", "playlists.json");
 
 const loadPlaylist = () => {
   const raw = fs.readFileSync(playlistPath, "utf8");
