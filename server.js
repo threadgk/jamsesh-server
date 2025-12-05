@@ -1,3 +1,6 @@
+require("dotenv").config();
+
+
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
@@ -5,15 +8,28 @@ const app = express();
 const fs = require("fs");   
 const multer = require("multer");
 const Joi = require("joi");
+const mongoose = require("mongoose");
+const Playlist = require("./models/Playlist");
 
 
 
 
+// Mongo DB Connection 
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => console.log("Connected to MongoDB..."))
+  .catch(err => console.error("Could not connect", err));
+
+// Middleware 
 app.use(express.json());
 app.use(cors());
 app.use(express.static("public"));
 
 
+
+
+
+// Multer Storage 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, "./uploads");
@@ -23,7 +39,11 @@ const storage = multer.diskStorage({
   filename: (req, file, cb) => {
     cb(null, Date.now() + "-"+ file.originalname); 
   }
-}); 
+});  
+const upload = multer ({ storage}); 
+
+
+// Joi Schemas 
 const loginSchema = Joi.object({
   username: Joi.string().min(3).max(30).required(),
   password: Joi.string().min(4).max(50).required()
@@ -32,18 +52,20 @@ const loginSchema = Joi.object({
 const playlistSchema = Joi.object({
   title: Joi.string().min(3).max(50).required(), 
   artist: Joi.string().min(3).max(50).required(),
-  album: Joi.string().allow("").max(50),
+  album: Joi.string().allow("").max(50), 
+  image: Joi.string().allow("").max(300).optional()
 });
 
 
-const upload = multer ({ storage}); 
 
-// load json data
+
+// load static json data
 const artists = require("./data/artists.json");
 const genres = require("./data/genres.json");
 const trending = require("./data/charts.json");
 
 //  playlist helpers
+/*
 const playlistPath = path.join(__dirname, "data", "playlists.json");
 
 const loadPlaylist = () => {
@@ -55,7 +77,10 @@ const savePlaylist = (playlist) => {
   fs.writeFileSync(playlistPath, JSON.stringify(playlist, null, 2));
 };
 
+*/ 
 
+// Upload Routes 
+//
 // upload avatar
 app.post("/api/upload/avatar", upload.single("avatar"), (req, res) => {
   if (!req.file) return res.status(400).json({ error: "No file Uploaded"}); 
@@ -70,7 +95,8 @@ app.post("/api/upload/banner", upload.single("banner"), (req, res) => {
 
 })
 
-
+// User Routes (JSON) 
+//
 // create new user 
 app.post("/api/signup", (req, res) => {
   try {
@@ -132,6 +158,7 @@ app.post("/api/login", (req, res) => {
 
 }); 
 
+// update profile 
 app.put("/api/profile/update", (req, res) => {
   try {
     const { username, avatar, banner, bio, location } = req.body; 
@@ -172,27 +199,91 @@ app.get("/api/trending", (req, res) => res.json(trending));
 
 // get playlist songs 
 // GET all playlist songs
-app.get("/api/playlist", (req, res) => {
+app.get("/api/playlist", async (req, res) => {
   try {
-    const playlist = loadPlaylist();
-    res.json(playlist);
+    const songs = await Playlist.find().sort({ createdAt: -1});
+    res.json(songs);
   } catch (err) {
-    console.error("Error loading playlist:", err);
+    console.error("Error loading playlist from Mongo DB:", err);
     res.status(500).json({ error: "Failed to load playlist" });
   }
 });
 
-// POST add a new song
-app.post("/api/playlist", (req, res) => {
+//  add a new song
+app.post("/api/playlist", async (req, res) => {
   try {
-    const { title, artist, album } = req.body;
+        const { error } = playlistSchema.validate(req.body ); 
+        if (error) {
+            return res.status(400).json({ error: error.details[0].message});
+          } 
 
-    const { error } = playlistSchema.validate({ title, artist, album }); 
+    const { title, artist, album, image } = req.body;
+
+    const newSong = new Playlist({
+      title,
+      artist,
+      album: album || "", 
+      image: image || ""
+    });
+
+
+    const savedSong = await newSong.save(); 
+    res.status(201).json(savedSong); 
+  } catch (err){
+    console.error("Error adding song (Mongo):", err); 
+    res.status(500).json({error: "Failed to add song"}); 
+  } 
+}); 
+
+app.put("/api/playlist/:id", async (req,res) => {
+  try {
+    const {error} = playlistSchema.validate(req.body); 
     if (error) {
-      return res.status(400).json({ error: error.details[0].message});
-    }
-    
+      return res.status(400).json({ error: error.details[0].message}); 
+    }  
 
+    const { title, artist, album, image }= req.body; 
+
+    const updatedSong = await Playlist.findByIdAndUpdate( 
+      req.params.id, 
+      {
+        title,
+        artist,
+        album: album || "", 
+        image: image || ""
+      }, 
+      { new: true }
+    ); 
+
+    if(!updatedSong) {
+      return res.status(404).json({ error: "Song not found"}); 
+    } 
+
+    res.json(updatedSong); 
+  } catch (err) {
+    console.error("Error updating song (Mongo):", err); 
+    res.status(500).json({ error: "Failed to update song"}); 
+  }
+}); 
+
+app.delete("/api/playlist/:id", async (req,res) => {
+  try {
+    const deleted = await Playlist.findByIdAndDelete(req.params.id)  
+
+    if (!deleted) {
+      return res.status(404).json({ error: "Song not found"}); 
+
+    } 
+
+    res.json({ success: true}); 
+  } catch (err) {
+    console.error("Error deleting song (Mongo):", err); 
+    res.status(500).json({ error: "Failed to delete song"}); 
+  }
+});
+    
+    
+/*
     const playlist = loadPlaylist();
 
     const newSong = {
@@ -266,6 +357,7 @@ app.delete("/api/playlist/:id", (req, res) => {
     res.status(500).json({ error: "Failed to delete song" });
   }
 });
+*/
 
 // get profiles 
 app.get("/api/profiles", (req, res) => {
